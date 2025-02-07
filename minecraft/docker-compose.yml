@@ -1,0 +1,43 @@
+services:
+  minecraft:
+    dns: 9.9.9.9
+    image: itzg/minecraft-server
+    environment:
+      EULA: "true"
+      ENABLE_AUTOPAUSE: "TRUE"
+      OVERRIDE_SERVER_PROPERTIES: "TRUE"
+      MAX_TICK_TIME: "-1"
+      AUTOPAUSE_TIMEOUT_INIT: "60"
+      AUTOPAUSE_TIMEOUT_EST: "20"
+      DIFFICULTY: "peaceful"
+      MODE: "creative"
+      ENABLE_ROLLING_LOGS: "TRUE"
+      OPS: |
+        Mateus80
+      EXISTING_OPS_FILE: "MERGE"
+      VIEW_DISTANCE: 32
+      INIT_MEMORY: 1G
+      MAX_MEMORY: 4G
+      WHITELIST: |
+        Mateus80
+        TaurielTheElf15
+        PandaPop18
+      OVERRIDE_WHITELIST: true
+    volumes:
+      - ./data:/data
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.minecraft.entrypoints=minecraft-tcp"
+      - "traefik.udp.routers.minecraft.entrypoints=minecraft-udp"
+      - "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)"
+volumes:
+  data: {}
+
+networks:
+  frontend:
+    external: true

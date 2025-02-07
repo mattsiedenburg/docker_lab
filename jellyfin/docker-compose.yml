@@ -1,0 +1,26 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - media:/media:ro
+    restart: unless-stopped
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://jellyfin.notajot.duckdns.org
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.notajot.duckdns.org`)"
+      - "traefik.http.routers.jellyfin.tls=true"
+volumes:
+  media:
+    driver_opts:
+      type: "cifs"
+      o: "username=guest,password="
+      device: "//192.168.8.3/Media"
+networks:
+  frontend:
+    external: true

@@ -1,0 +1,26 @@
+services:
+    cadvisor:
+        image: gcr.io/cadvisor/cadvisor
+        devices:
+            - /dev/kmsg
+        privileged: true
+        restart: unless-stopped
+        volumes:
+            - '/dev/disk/:/dev/disk:ro'
+            - '/var/lib/docker/:/var/lib/docker:ro'
+            - '/sys:/sys:ro'
+            - '/var/run:/var/run:ro'
+            - '/:/rootfs:ro'
+        command:
+            - '-housekeeping_interval=10s'
+            - '-docker_only=true'
+        networks:
+            - frontend
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.cadvisor.rule=Host(`cadvisor.notajot.duckdns.org`)
+            - traefik.http.routers.cadvisor.entrypoints=websecure
+            - traefik.http.routers.cadvisor.tls.certresolver=letsEncrypt
+networks:
+    frontend:
+        external: true

@@ -1,0 +1,20 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    volumes:
+      - ./config:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
+    environment:
+      PUID: 1000
+      PGID: 1000
+    restart: unless-stopped
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.tls=true"
+      - "traefik.http.routers.homepage.entrypoints=websecure"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.notajot.duckdns.org`)"
+networks:
+  frontend:
+    external: true

@@ -1,0 +1,17 @@
+services:
+    prometheus:
+        image: prom/prometheus
+        command:
+        - --config.file=/etc/prometheus/prometheus.yml
+        volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+        networks:
+            - frontend
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.prometheus.rule=Host(`prometheus.notajot.duckdns.org`)
+            - traefik.http.routers.prometheus.entrypoints=websecure
+            - traefik.http.routers.prometheus.tls.certresolver=letsEncrypt
+networks:
+    frontend:
+        external: true

@@ -1,0 +1,21 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.3.1
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+      - 25565:25565/tcp
+      - 25565:25565/udp
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config:/etc/traefik:ro
+      - ./data/certs/acme.json:/acme.json
+    networks:
+      - frontend
+    restart: unless-stopped
+networks:
+  frontend:
+    external: true

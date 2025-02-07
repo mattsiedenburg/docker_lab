@@ -1,0 +1,19 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    volumes:
+      - ./uptime-kuma:/app/data
+    restart: unless-stopped
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime-kuma.rule=Host(`uptimekuma.notajot.duckdns.org`)"
+      - "traefik.http.routers.uptime-kuma.entrypoints=websecure"
+      - "traefik.http.routers.uptime-kuma.tls=true"
+      - "traefik.http.routers.uptime-kuma.tls.certresolver=letsEncrypt"
+      #- "traefik.http.routers.uptime-kuma.middlewares=authentik@file"
+
+networks:
+  frontend:
+    external: true

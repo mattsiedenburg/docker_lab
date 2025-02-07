@@ -1,0 +1,14 @@
+services:
+    ittools:
+        restart: unless-stopped
+        image: 'corentinth/it-tools:latest'
+        networks:
+          - frontend
+        labels: 
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.ittools.entrypoints=websecure'
+          - 'traefik.http.routers.ittools.tls=true'
+          - 'traefik.http.routers.ittools.rule=Host(`ittools.notajot.duckdns.org`)'
+networks:
+  frontend:
+    external: true

@@ -1,0 +1,20 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://vaultwarden.notajot.duckdns.org"
+    volumes:
+      - ./vw-data/:/data/
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.notajot.duckdns.org`)"
+      - "traefik.http.routers.vaultwarden.entrypoints=websecure"
+      - "traefik.http.routers.vaultwarden.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.vaultwarden.tls=true"
+
+networks:
+  frontend:
+    external: true

@@ -1,0 +1,17 @@
+services:
+  whatsupdocker:
+    image: getwud/wud
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wud.rule=Host(`wud.notajot.duckdns.org`)"
+      - "traefik.http.routers.wud.entrypoints=websecure"
+      - "traefik.http.routers.wud.tls.certresolver=letsEncrypt"
+      #- "traefik.http.routers.wud.middlewares=authentik@file"
+networks:
+  frontend:
+    external: true
