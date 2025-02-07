@@ -4,5 +4,5 @@ services:
     network_mode: host
     restart: unless-stopped 
     environment:
-    - SECRET_KEY=48866c05f7ed0d570672a303bd645d8c2c6b543910c32509f956f13a6b21479d
+    - SECRET_KEY=${SECRET_KEY}
 
