@@ -2,7 +2,6 @@
 services:
   duckdns:
     image: lscr.io/linuxserver/duckdns:latest
-    container_name: duckdns
     network_mode: host #optional
     environment:
       - PUID=1000 #optional

@@ -1,0 +1,46 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+api:
+  dashboard: true
+  insecure: true
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: :443
+    http:
+      tls:
+        certResolver: letsEncrypt
+        domains:
+          - main: notajot.duckdns.org
+            sans:
+              - '*.notajot.duckdns.org'
+  minecraft-tcp:
+    address: :25565
+  minecraft-udp:
+    address: :25565/udp
+certificatesResolvers:
+  letsEncrypt:
+    acme:
+      email: 'masieden@gmail.com'
+      storage: acme.json
+      caServer: 'https://acme-v02.api.letsencrypt.org/directory'
+      #caServer: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+      dnsChallenge:
+        provider: duckdns
+        resolvers:
+          - '1.1.1.1:53'
+          - '9.9.9.9:53'
+providers:
+  docker:
+    exposedByDefault: false
+    network: frontend
+  file:
+    directory: /etc/traefik/conf/
+    watch: true

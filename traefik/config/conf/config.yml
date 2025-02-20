@@ -1,0 +1,47 @@
+http:
+  routers:
+    pihole:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`pihole.notajot.duckdns.org`)"
+      middlewares:
+        - default-headers
+        - addprefix-pihole
+      tls:
+        certResolver: letsEncrypt
+      service: pihole
+
+  services:
+    pihole:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.8.2:80"
+        passHostHeader: true
+
+  middlewares:
+    addprefix-pihole:
+      addPrefix:
+        prefix: "/admin"
+  
+  default-headers:
+      headers:
+        frameDeny: true
+        sslRedirect: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+
+  default-whitelist:
+    ipWhiteList:
+      sourceRange:
+        - "10.0.0.0/24"
+        - "192.168.0.0/16"
+        - "172.0.0.0/8"
+
+  secured:
+    chain:
+      middlewares:
+        - default-whitelist
+        - default-headers
