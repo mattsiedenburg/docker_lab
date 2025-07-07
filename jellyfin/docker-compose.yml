@@ -20,7 +20,7 @@ volumes:
     driver_opts:
       type: "cifs"
       o: "username=guest,password="
-      device: "//192.168.8.3/Media"
+      device: "//192.168.16.3/Media"
 networks:
   frontend:
     external: true

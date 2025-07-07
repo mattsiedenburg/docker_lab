@@ -12,6 +12,7 @@ services:
             - traefik.http.routers.prometheus.rule=Host(`prometheus.notajot.duckdns.org`)
             - traefik.http.routers.prometheus.entrypoints=websecure
             - traefik.http.routers.prometheus.tls.certresolver=letsEncrypt
+        restart: unless-stopped
 networks:
     frontend:
         external: true
