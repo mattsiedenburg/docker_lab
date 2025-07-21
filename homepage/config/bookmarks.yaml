@@ -1,0 +1,45 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/bookmarks
+
+- Communications:
+    - Gmail:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/gmail.png
+          href: https://mail.google.com/
+    - WhatsApp:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/whatsapp.png
+          href: https://web.whatsapp.com/
+    - Messages:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-messages.png
+          href: https://messages.google.com/web/
+    - Messanger:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/facebook-messenger.png
+          href: https://www.messenger.com/
+- Developer:
+    - GitHub:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/github-light.png
+          href: https://github.com/mattsiedenburg/
+- Social:
+    - Lemmy:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/lemmy-light.png
+          href: https://lemmy.world/
+    - Discord:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/discord.png
+          href: https://discord.com/
+    - Instagram:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/instagram.png
+          href: https://www.instagram.com/
+- Entertainment:
+    - YouTube:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/youtube.png
+          href: https://youtube.com/
+    - MLB TV:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/channels-dvr.png
+          href: https://www.mlb.com/tv/
+- Boring:
+    - News:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-news.png
+          href: https://news.google.com/
+    - Finance:
+        - icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/yahoo.png
+          href: https://finance.yahoo.com/
