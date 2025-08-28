@@ -1,29 +1,33 @@
 http:
   routers:
-    pihole:
+    immich:
       entryPoints:
         - "websecure"
-      rule: "Host(`pihole.notajot.duckdns.org`)"
+      rule: "Host(`immich.notajot.duckdns.org`)"
       middlewares:
         - default-headers
-        - addprefix-pihole
+        #- addprefix-immich
       tls:
-        certResolver: letsEncrypt
-      service: pihole
+        certResolver: http
+      service: immich
 
   services:
-    pihole:
+    immich:
       loadBalancer:
         servers:
-          - url: "http://192.168.8.2:80"
+          - url: "http://192.168.16.50:30041"
         passHostHeader: true
 
   middlewares:
-    addprefix-pihole:
+    addprefix-immich:
       addPrefix:
-        prefix: "/admin"
-  
-  default-headers:
+        prefix: "/photos"
+
+    https-redirect:
+      redirectScheme:
+        scheme: https
+
+    default-headers:
       headers:
         frameDeny: true
         sslRedirect: true
@@ -33,15 +37,15 @@ http:
         stsIncludeSubdomains: true
         stsPreload: true
 
-  default-whitelist:
-    ipWhiteList:
-      sourceRange:
+    default-whitelist:
+      ipWhiteList:
+        sourceRange:
         - "10.0.0.0/24"
         - "192.168.0.0/16"
         - "172.0.0.0/8"
 
-  secured:
-    chain:
-      middlewares:
+    secured:
+      chain:
+        middlewares:
         - default-whitelist
         - default-headers

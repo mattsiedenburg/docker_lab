@@ -1,6 +1,6 @@
 services:
   reverse-proxy:
-    image: traefik:v3.3.1
+    image: traefik:v3.5
     ports:
       - 80:80
       - 443:443
