@@ -10,12 +10,26 @@ http:
       tls:
         certResolver: http
       service: immich
+    distribution:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`distribution.notajot.duckdns.org`)"
+      middlewares:
+        - default-headers
+      tls:
+        certResolver: http
+      service: distribution
 
   services:
     immich:
       loadBalancer:
         servers:
           - url: "http://192.168.16.50:30041"
+        passHostHeader: true
+    distribution:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.16.50:30095"
         passHostHeader: true
 
   middlewares:

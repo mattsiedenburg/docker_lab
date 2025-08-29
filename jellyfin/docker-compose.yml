@@ -7,7 +7,7 @@ services:
       - media:/media:ro
     restart: unless-stopped
     environment:
-      - JELLYFIN_PublishedServerUrl=http://jellyfin.notajot.duckdns.org
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.notajot.duckdns.org
     networks:
       - frontend
     labels:
@@ -19,8 +19,8 @@ volumes:
   media:
     driver_opts:
       type: "cifs"
-      o: "username=guest,password="
-      device: "//192.168.16.3/Media"
+      o: "username=${USERNAME},password=${PASSWORD}"
+      device: "${DEVICE}"
 networks:
   frontend:
     external: true
